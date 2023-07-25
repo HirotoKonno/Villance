@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'cart_view.dart';
 import 'item_list_view.dart';
 
+import 'package:badges/badges.dart' as badges;
+
 void main() => runApp(
       const MaterialApp(
         home: VillanceApp(),
@@ -24,6 +26,7 @@ class _NavigationState extends State<VillanceApp> {
   List<Widget> display = [
     const ItemListView(),
     const ItemListView(),
+    const CartView(),
     const CartView()
   ];
 
@@ -32,21 +35,38 @@ class _NavigationState extends State<VillanceApp> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('ご注文',style: TextStyle(color: Colors.black),),
+        title: const Text(
+          'ご注文',
+          style: TextStyle(color: Colors.black),
+        ),
+        actions: [
+          IconButton(
+            color: Colors.black,
+            icon: const badges.Badge(
+              badgeContent: Text("2"),
+              child: Icon(Icons.shopping_cart),),
+            onPressed: () => {},
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.coffee_sharp),
-            label: 'ドリンク',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
-            label: '食べ物',
+            label: 'お食事',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            label: 'カート',
+            icon: Icon(Icons.fire_hydrant_alt),
+            label: 'シーシャ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.house_siding_sharp),
+            label: 'サウナ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.emoji_people),
+            label: '呼び出し',
           ),
         ],
         onTap: (int index) {
