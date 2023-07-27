@@ -5,6 +5,8 @@ import 'item_list_view.dart';
 
 import 'package:badges/badges.dart' as badges;
 
+import 'onion_view.dart';
+
 void main() => runApp(
       const MaterialApp(
         home: VillanceApp(),
@@ -25,7 +27,9 @@ class _NavigationState extends State<VillanceApp> {
 
   List<Widget> display = [
     const ItemListView(),
-    const ItemListView(),
+    OnionView(),
+    const CartView(),
+    const CartView(),
     const CartView(),
     const CartView()
   ];
@@ -54,7 +58,15 @@ class _NavigationState extends State<VillanceApp> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
-            label: 'お食事',
+            label: 'ドリンク',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.face),
+            label: '玉ねぎ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.store_outlined),
+            label: 'レンタル',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fire_hydrant_alt),
