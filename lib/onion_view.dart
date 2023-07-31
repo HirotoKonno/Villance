@@ -10,39 +10,50 @@ class OnionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.orange[140],
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          const Text(
-            "淡路島産の玉ねぎはお土産にいががでしょう!?\n"
-            "\n瀬戸内海特有の温暖な気候と風土で育つ淡路島産玉ねぎは「"
-            "甘い・やわらかい・みずみずしい」と全国的にも有名です。\n"
-            "是非、ご注文お待ちしております！\n※お帰りの際にお渡しすることも可能です。\n",
-            style: TextStyle(
-              fontSize: 18,
-            ),
-          ),
-          const Text(
-            "1玉 : 150円",
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          const OnionList(),
-          const ItemCountView(),
-          SizedBox(
-            width: 200, //横幅
-            height: 50, //高さ
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.black,
-                backgroundColor: Colors.orange[300],
+      child: Scrollbar(
+        thickness: 8,
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  const Text(
+                    "1玉 : 150円",
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  const OnionList(),
+                  const ItemCountView(),
+                  SizedBox(
+                    width: 200, //横幅
+                    height: 50, //高さ
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.orange[300],
+                      ),
+                      onPressed: () {},
+                      child: const Text('確定'),
+                    ),
+                  ),
+                  const Text(
+                    "\n淡路島産の玉ねぎはお土産にいががでしょう!?\n"
+                    "\n瀬戸内海特有の温暖な気候と風土で育つ淡路島産玉ねぎは「"
+                    "甘い・やわらかい・みずみずしい」と全国的にも有名です。\n"
+                    "是非、ご注文お待ちしております！\n\n※お帰りの際にお渡しすることも可能です。\n",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
               ),
-              onPressed: () {},
-              child: const Text('確定'),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -71,38 +82,34 @@ class _MyAppState extends State<OnionList> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CarouselSlider.builder(
-                options: CarouselOptions(
-                  height: 400,
-                  initialPage: 0,
-                  viewportFraction: 1,
-                  enlargeCenterPage: true,
-                  onPageChanged: (index, reason) => setState(() {
-                    activeIndex = index;
-                  }),
-                ),
-                itemCount: images.length,
-                itemBuilder: (context, index, realIndex) {
-                  final path = images[index];
-                  return buildImage(path, index);
-                },
-              ),
-              const SizedBox(height: 20),
-              buildIndicator()
-            ],
+  Widget build(BuildContext context) => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CarouselSlider.builder(
+            options: CarouselOptions(
+              height: 400,
+              initialPage: 0,
+              viewportFraction: 1,
+              enlargeCenterPage: true,
+              onPageChanged: (index, reason) => setState(() {
+                activeIndex = index;
+              }),
+            ),
+            itemCount: images.length,
+            itemBuilder: (context, index, realIndex) {
+              final path = images[index];
+              return buildImage(path, index);
+            },
           ),
-        ),
+          const SizedBox(height: 20),
+          buildIndicator()
+        ],
       );
 
   Widget buildImage(path, index) => Container(
         //画像間の隙間
         margin: const EdgeInsets.symmetric(horizontal: 13),
-        color: Colors.grey,
+        color: Colors.white,
         child: Image.asset(
           path,
           fit: BoxFit.cover,
@@ -114,9 +121,9 @@ class _MyAppState extends State<OnionList> {
         count: images.length,
         //エフェクトはドキュメントを見た方がわかりやすい
         effect: const JumpingDotEffect(
-            dotHeight: 20,
-            dotWidth: 20,
-            activeDotColor: Colors.green,
+            dotHeight: 15,
+            dotWidth: 15,
+            activeDotColor: Colors.orange,
             dotColor: Colors.black12),
       );
 }

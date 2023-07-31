@@ -23,6 +23,13 @@
             </list>
           </value>
         </entry>
+        <entry key="carousel_slider">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/carousel_slider-4.2.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="characters">
           <value>
             <list>
@@ -128,6 +135,13 @@
             </list>
           </value>
         </entry>
+        <entry key="smooth_page_indicator">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/smooth_page_indicator-0.3.0-nullsafety.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="source_span">
           <value>
             <list>
@@ -183,6 +197,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/async-2.10.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/badges-3.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/carousel_slider-4.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/characters-1.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/clock-1.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/collection-1.17.0/lib" />
@@ -195,6 +210,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/material_color_utilities-0.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/meta-1.8.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path-1.8.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/smooth_page_indicator-0.3.0-nullsafety.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_span-1.9.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stack_trace-1.11.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stream_channel-2.1.1/lib" />

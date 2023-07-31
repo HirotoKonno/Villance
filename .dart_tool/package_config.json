@@ -20,6 +20,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "carousel_slider",
+      "rootUri": "file:///Users/konnohiroshito/.pub-cache/hosted/pub.dev/carousel_slider-4.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "characters",
       "rootUri": "file:///Users/konnohiroshito/.pub-cache/hosted/pub.dev/characters-1.2.1",
       "packageUri": "lib/",
@@ -110,6 +116,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "smooth_page_indicator",
+      "rootUri": "file:///Users/konnohiroshito/.pub-cache/hosted/pub.dev/smooth_page_indicator-0.3.0-nullsafety.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "source_span",
       "rootUri": "file:///Users/konnohiroshito/.pub-cache/hosted/pub.dev/source_span-1.9.1",
       "packageUri": "lib/",
@@ -158,7 +170,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-07-25T13:07:41.659874Z",
+  "generated": "2023-07-31T11:57:26.731459Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }
