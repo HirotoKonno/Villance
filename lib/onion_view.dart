@@ -37,7 +37,7 @@ class OnionView extends StatelessWidget {
                         backgroundColor: Colors.orange[300],
                       ),
                       onPressed: () {},
-                      child: const Text('確定'),
+                      child: const Text('追加'),
                     ),
                   ),
                   const Text(
@@ -119,7 +119,6 @@ class _MyAppState extends State<OnionList> {
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
         count: images.length,
-        //エフェクトはドキュメントを見た方がわかりやすい
         effect: const JumpingDotEffect(
             dotHeight: 15,
             dotWidth: 15,
