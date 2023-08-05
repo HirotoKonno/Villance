@@ -17,11 +17,6 @@ class _State extends State<ItemListView> {
 
   _State() {
     _cardList.add(const PictureCard(
-      '牛丼',
-      '890円',
-      'gyudon1.png',
-    ));
-    _cardList.add(const PictureCard(
       '淡路カクテル',
       '500円',
       'drink.png',
