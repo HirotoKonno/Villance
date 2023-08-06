@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ItemCountView extends StatefulWidget {
-  const ItemCountView({super.key});
+import 'database_helper.dart';
+import 'main.dart';
+
+class ItemCountView extends ConsumerStatefulWidget {
+  final String itemName;
+  final int itemPrice;
+
+  const ItemCountView(this.itemName, this.itemPrice, {super.key});
 
   @override
   createState() => _ChangeItemCountState();
 }
 
-class _ChangeItemCountState extends State<ItemCountView> {
+class _ChangeItemCountState extends ConsumerState<ItemCountView> {
+  final dbHelper = DatabaseHelper.instance;
   int _count = 0;
+
+  get itemName => widget.itemName;
+
+  get itemPrice => widget.itemPrice;
 
   void _handlePlusPressed() {
     setState(() {
@@ -34,18 +46,29 @@ class _ChangeItemCountState extends State<ItemCountView> {
 
   @override
   Widget build(BuildContext context) {
+    final StateController<int> notificationCountNotifier =
+        ref.watch(notificationCountProvider.notifier);
     return Container(
         padding: const EdgeInsets.all(5.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            FloatingActionButton(
+            SizedBox(
+              width: 60, //横幅
+              height: 60, //高さ
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                ),
                 onPressed: _handleMinusPressMd,
-                backgroundColor: Colors.white,
                 child: const Icon(
                   Icons.remove,
                   color: Colors.black,
-                )),
+                ),
+              ),
+            ),
             Text(
               "$_count",
               style: const TextStyle(
@@ -53,13 +76,22 @@ class _ChangeItemCountState extends State<ItemCountView> {
                   fontSize: 30.0,
                   fontWeight: FontWeight.w500),
             ),
-            FloatingActionButton(
+            SizedBox(
+              width: 60, //横幅
+              height: 60, //高さ
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                ),
                 onPressed: _handlePlusPressed,
-                backgroundColor: Colors.white,
                 child: const Icon(
                   Icons.add,
                   color: Colors.black,
-                )),
+                ),
+              ),
+            ),
             SizedBox(
               width: 60, //横幅
               height: 60, //高さ
@@ -69,14 +101,29 @@ class _ChangeItemCountState extends State<ItemCountView> {
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.orangeAccent,
                 ),
-                onPressed: _count == 0 ? null : () {
-                  _clearCount();
-                },
+                onPressed: _count == 0
+                    ? null
+                    : () {
+                        for (int i in Iterable.generate(_count)) {
+                          notificationCountNotifier.state++;
+                        }
+                        _insert(_count);
+                        _clearCount();
+                      },
                 child: const Text('追加',
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
           ],
         ));
+  }
+
+  void _insert(int quantity) async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.name: itemName,
+      DatabaseHelper.quantity: quantity,
+      DatabaseHelper.price: itemPrice,
+    };
+    await dbHelper.updateOrInsertProduct(row);
   }
 }

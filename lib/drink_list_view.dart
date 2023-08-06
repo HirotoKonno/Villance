@@ -5,17 +5,18 @@ import 'item_list_view.dart';
 class DrinkListView extends StatelessWidget {
   final List<PictureCard> _drinkCardList = <PictureCard>[];
 
+  final List itemName = <String>['淡路カクテル', 'BECHILL'];
+  final List itemPrice = <int>[500, 700];
+  final List itemPngName = <String>['drink.png', 'bechill.png'];
+
   DrinkListView({super.key}) {
-    _drinkCardList.add(const PictureCard.drink(
-      '淡路カクテル',
-      '500円',
-      'drink.png',
-    ));
-    _drinkCardList.add(const PictureCard.drink(
-      'BECHILL',
-      '700円',
-      'bechill.png',
-    ));
+    for (int i = 0; i < itemName.length; i++) {
+      _drinkCardList.add(PictureCard.drink(
+        itemName[i],
+        itemPrice[i],
+        itemPngName[i],
+      ));
+    }
   }
 
   @override

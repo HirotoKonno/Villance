@@ -3,14 +3,14 @@ import 'package:villance/item_count_view.dart';
 
 class PictureCard extends StatelessWidget {
   final String _name;
-  final String _desc;
+  final int _price;
   final String _picture;
   final Icon icon;
 
-  const PictureCard.drink(this._name, this._desc, this._picture,
+  const PictureCard.drink(this._name, this._price, this._picture,
       {super.key, this.icon = const Icon(Icons.local_drink)});
 
-  const PictureCard.rental(this._name, this._desc, this._picture,
+  const PictureCard.rental(this._name, this._price, this._picture,
       {super.key, this.icon = const Icon(Icons.store_outlined)});
 
   @override
@@ -28,11 +28,11 @@ class PictureCard extends StatelessWidget {
             leading: icon,
             title: Text(_name,
                 style: const TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: Text(_desc,
+            subtitle: Text("$_price円",
                 style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
           Image.asset('images/$_picture'),
-          const ItemCountView(),
+          ItemCountView(_name, _price),
         ],
       ),
     );

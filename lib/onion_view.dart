@@ -5,21 +5,23 @@ import 'item_count_view.dart';
 
 class OnionView extends StatelessWidget {
   const OnionView({super.key});
+  static const String onionName = "玉ねぎ";
+  static const int onionPrice = 150;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.orange[140],
-      child: Scrollbar(
+      child: const Scrollbar(
         thickness: 8,
         child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           slivers: [
             SliverFillRemaining(
               hasScrollBody: false,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     "1玉 : 150円",
                     style: TextStyle(
@@ -27,19 +29,7 @@ class OnionView extends StatelessWidget {
                     ),
                   ),
                   OnionList(),
-                  ItemCountView(),
-                  // SizedBox(
-                  //   width: 200, //横幅
-                  //   height: 50, //高さ
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       foregroundColor: Colors.black,
-                  //       backgroundColor: Colors.orange[300],
-                  //     ),
-                  //     onPressed: () {},
-                  //     child: const Text('追加'),
-                  //   ),
-                  // ),
+                  ItemCountView(onionName,onionPrice),
                   Text(
                     "\n淡路島産の玉ねぎはお土産にいががでしょう!?\n"
                     "\n瀬戸内海特有の温暖な気候と風土で育つ淡路島産玉ねぎは「"
@@ -68,8 +58,8 @@ class OnionList extends StatefulWidget {
 
 class _MyAppState extends State<OnionList> {
   final images = [
-    'images/onion1.png',
     'images/onion2.png',
+    'images/onion1.png',
     'images/onion3.png',
     'images/onion4.png',
     'images/onion5.png',

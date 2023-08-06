@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:villance/rental_list_view.dart';
 
 import 'cart_view.dart';
@@ -9,23 +12,25 @@ import 'package:badges/badges.dart' as badges;
 import 'onion_view.dart';
 
 void main() => runApp(
-      const MaterialApp(
-        home: VillanceApp(),
+      const ProviderScope(
+        child: MaterialApp(
+          home: VillanceApp(),
+        ),
       ),
     );
 
-class VillanceApp extends StatefulWidget {
+class VillanceApp extends ConsumerStatefulWidget {
   const VillanceApp({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _NavigationState();
-  }
+  createState() => _NavigationState();
 }
 
-class _NavigationState extends State<VillanceApp> {
+final notificationCountProvider = StateProvider((ref) => 0);
+
+class _NavigationState extends ConsumerState<VillanceApp> {
   var _navigationIndex = 0;
-  var _appBarTitle = "";
+  var _appBarTitle = 'ご注文';
 
   List<Widget> display = [
     DrinkListView(),
@@ -38,6 +43,8 @@ class _NavigationState extends State<VillanceApp> {
 
   @override
   Widget build(BuildContext context) {
+    final int notificationCount = ref.watch(notificationCountProvider);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -48,11 +55,17 @@ class _NavigationState extends State<VillanceApp> {
         actions: [
           IconButton(
             color: Colors.black,
-            icon: const badges.Badge(
-              badgeContent: Text("2"),
-              child: Icon(Icons.shopping_cart),
+            icon: badges.Badge(
+              showBadge: (notificationCount == 0) ? false : true,
+              badgeContent: Text(notificationCount.toString()),
+              child: const Icon(Icons.shopping_cart),
             ),
-            onPressed: () => {},
+            onPressed: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CartView()),
+              )
+            },
           ),
         ],
       ),
