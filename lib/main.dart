@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:villance/rental_list_view.dart';
 
 import 'cart_view.dart';
-import 'item_list_view.dart';
+import 'drink_list_view.dart';
 
 import 'package:badges/badges.dart' as badges;
 
@@ -23,12 +24,13 @@ class VillanceApp extends StatefulWidget {
 }
 
 class _NavigationState extends State<VillanceApp> {
-  var _navIndex = 0;
+  var _navigationIndex = 0;
+  var _appBarTitle = "";
 
   List<Widget> display = [
-    const ItemListView(),
-    OnionView(),
-    const CartView(),
+    DrinkListView(),
+    const OnionView(),
+    RentalListView(),
     const CartView(),
     const CartView(),
     const CartView()
@@ -39,16 +41,17 @@ class _NavigationState extends State<VillanceApp> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text(
-          'ご注文',
-          style: TextStyle(color: Colors.black),
+        title: Text(
+          _appBarTitle,
+          style: const TextStyle(color: Colors.black),
         ),
         actions: [
           IconButton(
             color: Colors.black,
             icon: const badges.Badge(
               badgeContent: Text("2"),
-              child: Icon(Icons.shopping_cart),),
+              child: Icon(Icons.shopping_cart),
+            ),
             onPressed: () => {},
           ),
         ],
@@ -57,7 +60,7 @@ class _NavigationState extends State<VillanceApp> {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant),
+            icon: Icon(Icons.local_drink),
             label: 'ドリンク',
           ),
           BottomNavigationBarItem(
@@ -82,15 +85,33 @@ class _NavigationState extends State<VillanceApp> {
           ),
         ],
         onTap: (int index) {
+          _onChangeAppBarTitle(index);
           setState(
             () {
-              _navIndex = index;
+              _navigationIndex = index;
             },
           );
         },
-        currentIndex: _navIndex,
+        currentIndex: _navigationIndex,
       ),
-      body: display[_navIndex],
+      body: display[_navigationIndex],
     );
+  }
+
+  void _onChangeAppBarTitle(int index) {
+    switch (index) {
+      case 0:
+      case 1:
+      case 2:
+        _appBarTitle = 'ご注文';
+        break;
+      case 3:
+      case 4:
+        _appBarTitle = 'ご予約';
+        break;
+      case 5:
+        _appBarTitle = 'ご連絡';
+        break;
+    }
   }
 }

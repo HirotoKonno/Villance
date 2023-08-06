@@ -1,42 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:villance/picture_card.dart';
 
-class ItemListView extends StatefulWidget {
-  const ItemListView({super.key});
+class CardListView extends StatefulWidget {
+  final List<PictureCard> cardList;
+
+  const CardListView({super.key, required this.cardList});
 
   @override
   State<StatefulWidget> createState() {
-    return _State();
+    return _CardListState();
   }
 }
 
-class _State extends State<ItemListView> {
-  // late final int navigationPosition;
-
-  final List<PictureCard> _cardList = <PictureCard>[];
-
-  _State() {
-    _cardList.add(const PictureCard(
-      '淡路カクテル',
-      '500円',
-      'drink.png',
-    ));
-    _cardList.add(const PictureCard(
-      'BECHILL',
-      '700円',
-      'bechill.png',
-    ));
-  }
-
+class _CardListState extends State<CardListView> {
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(8),
       child: ListView.builder(
-        itemCount: _cardList.length,
+        itemCount: widget.cardList.length,
         itemBuilder: (BuildContext context, int index) {
-          return _cardList[index];
+          return widget.cardList[index];
         },
       ),
     );

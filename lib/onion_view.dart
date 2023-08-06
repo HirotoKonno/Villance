@@ -19,32 +19,32 @@ class OnionView extends StatelessWidget {
               hasScrollBody: false,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  const Text(
+                children: const <Widget>[
+                  Text(
                     "1玉 : 150円",
                     style: TextStyle(
                       fontSize: 30,
                     ),
                   ),
-                  const OnionList(),
-                  const ItemCountView(),
-                  SizedBox(
-                    width: 200, //横幅
-                    height: 50, //高さ
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.black,
-                        backgroundColor: Colors.orange[300],
-                      ),
-                      onPressed: () {},
-                      child: const Text('追加'),
-                    ),
-                  ),
-                  const Text(
+                  OnionList(),
+                  ItemCountView(),
+                  // SizedBox(
+                  //   width: 200, //横幅
+                  //   height: 50, //高さ
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //       foregroundColor: Colors.black,
+                  //       backgroundColor: Colors.orange[300],
+                  //     ),
+                  //     onPressed: () {},
+                  //     child: const Text('追加'),
+                  //   ),
+                  // ),
+                  Text(
                     "\n淡路島産の玉ねぎはお土産にいががでしょう!?\n"
                     "\n瀬戸内海特有の温暖な気候と風土で育つ淡路島産玉ねぎは「"
                     "甘い・やわらかい・みずみずしい」と全国的にも有名です。\n"
-                    "是非、ご注文お待ちしております！\n\n※お帰りの際にお渡しすることも可能です。\n",
+                    "是非、ご注文お待ちしております！\n",
                     style: TextStyle(
                       fontSize: 18,
                     ),
