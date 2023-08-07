@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,11 +28,8 @@ class _CartListState extends ConsumerState<CartListView> {
     return;
   }
 
-  Future<List<Map<String, dynamic>>> createOrderMessage() async {
-    List<Map<String, dynamic>> data = await dbHelper.queryAllRows();
-    data.forEach((row) {
-      print('ID: ${row['id']}, Name: ${row['name']}');
-    });
+  Future<List<Item>> createOrderMessage() async{
+    List<Item> data = await dbHelper.getMemos();
     return data;
   }
 
@@ -40,6 +38,9 @@ class _CartListState extends ConsumerState<CartListView> {
 
     final StateController<int> notificationCountNotifier =
     ref.watch(notificationCountProvider.notifier);
+
+    var dataList = createOrderMessage();
+    // print(dataList.);
     return Container(
       padding: const EdgeInsets.all(5.0),
       child: Column(
@@ -49,7 +50,7 @@ class _CartListState extends ConsumerState<CartListView> {
             child: ListView(
               children: <Widget>[
 
-                for (var i = 0; i < 10; i++)
+                for (var i = 0; i < 5; i++)
                   Card(
                       child: Row(
                         children: <Widget>[
