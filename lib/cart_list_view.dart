@@ -14,11 +14,6 @@ class CartListView extends ConsumerStatefulWidget {
 
 class _CartListState extends ConsumerState<CartListView> {
   final dbHelper = DatabaseHelper.instance;
-  var _cartList;
-
-  _CartListState() {
-    // _cartList = dbHelper.getCartItems();
-  }
 
   void _handlePlusPressed() {
     return;
@@ -28,9 +23,8 @@ class _CartListState extends ConsumerState<CartListView> {
     return;
   }
 
-  Future<List<Item>> createOrderMessage() async{
-    List<Item> data = await dbHelper.getMemos();
-    return data;
+  Future<List<Item>> _getCartItems() async {
+    return await dbHelper.getCartItems();
   }
 
   @override
@@ -39,8 +33,6 @@ class _CartListState extends ConsumerState<CartListView> {
     final StateController<int> notificationCountNotifier =
     ref.watch(notificationCountProvider.notifier);
 
-    var dataList = createOrderMessage();
-    // print(dataList.);
     return Container(
       padding: const EdgeInsets.all(5.0),
       child: Column(

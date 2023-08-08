@@ -76,45 +76,14 @@ class DatabaseHelper {
     }
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRows() async {
-    Database? db = await instance.database;
-    return await db!.query(tableCart);
-  }
-
-  Future<List<Item>> getAllAccount() async {
-    Database? db = await instance.database;
-    List<Map> results = await db!.query(tableCart);
-    // map to account list
-    return results.map((Map m) {
-      int id = m["id"];
-      String name = m["name"];
-      int quantity = m["quantity"];
-      int price = m["price"];
-      return Item(id, name, quantity, price);
-    }).toList();
-  }
-
-  Future<List<Item>> getMemos() async {
+  Future<List<Item>> getCartItems() async {
     final Database? db = await instance.database;
     final List<Map<String, dynamic>> maps = await db!.query(tableCart);
     return List.generate(maps.length, (i) {
-      print(maps[i]['id']);
-      print(maps[i]['name']);
-      print(maps[i]['quantity']);
-      print(maps[i]['price']);
-      return Item(
-        maps[i]['id'],
-        maps[i]['name'],
-        maps[i]['quantity'],
-        maps[i]['price'],
-      );
-    });
-  }
-
-  Future<List<Item>> getCartItems() async {
-    Database? db = await instance.database;
-    final List<Map<String, dynamic>> maps = await db!.query(tableCart);
-    return List.generate(maps.length, (i) {
+      print(maps[i][columnId]);
+      print(maps[i][name]);
+      print(maps[i][quantity]);
+      print(maps[i][price]);
       return Item(
         maps[i][columnId],
         maps[i][name],
