@@ -36,9 +36,9 @@ class _NavigationState extends ConsumerState<VillanceApp> {
     DrinkListView(),
     const OnionView(),
     RentalListView(),
-    const CartView(),
-    const CartView(),
-    const CartView()
+    DrinkListView(),
+    DrinkListView(),
+    DrinkListView(),
   ];
 
   @override
