@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,11 +15,16 @@ class _CartListState extends ConsumerState<CartListView> {
   final dbHelper = DatabaseHelper.instance;
   Future<List<Item>>? _cartData;
 
-  void _handlePlusPressed() {
-    return;
+  _handlePlusPressed(String name, int quantity) async {
+    final addNum = quantity + 1;
+    Map<String, dynamic> row = {
+      DatabaseHelper.name : name,
+      DatabaseHelper.quantity: addNum,
+    };
+    await dbHelper.updateCartItem(row);
   }
 
-  void _handleMinusPressMd() {
+  _handleMinusPressMd() {
     return;
   }
 
@@ -58,11 +62,11 @@ class _CartListState extends ConsumerState<CartListView> {
                             Card(
                                 child: Row(
                               children: <Widget>[
-                                const Expanded(
+                                Expanded(
                                     child: ListTile(
-                                  leading: Icon(Icons.local_drink),
-                                  title: Text("A",
-                                      style: TextStyle(
+                                  leading: const Icon(Icons.local_drink),
+                                  title: Text(data[i].name,
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold)),
                                 )),
                                 SizedBox(
@@ -74,7 +78,7 @@ class _CartListState extends ConsumerState<CartListView> {
                                       foregroundColor: Colors.black,
                                       backgroundColor: Colors.white,
                                     ),
-                                    onPressed: _handleMinusPressMd,
+                                    onPressed: () => _handleMinusPressMd,
                                     child: const Icon(
                                       Icons.remove,
                                       color: Colors.black,
@@ -82,9 +86,9 @@ class _CartListState extends ConsumerState<CartListView> {
                                   ),
                                 ),
                                 const SizedBox(width: 20),
-                                const Text(
-                                  "9",
-                                  style: TextStyle(
+                                Text(
+                                  data[i].quantity.toString(),
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 25.0,
                                       fontWeight: FontWeight.w500),
@@ -99,7 +103,8 @@ class _CartListState extends ConsumerState<CartListView> {
                                       foregroundColor: Colors.black,
                                       backgroundColor: Colors.white,
                                     ),
-                                    onPressed: _handlePlusPressed,
+                                    onPressed: () => _handlePlusPressed(
+                                        data[i].name, data[i].quantity),
                                     child: const Icon(
                                       Icons.add,
                                       color: Colors.black,
@@ -116,6 +121,8 @@ class _CartListState extends ConsumerState<CartListView> {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.black,
+                          backgroundColor: Colors.orangeAccent,
                           minimumSize: const Size(250, 50),
                         ),
                         child: const Text('注文する'),
@@ -128,8 +135,7 @@ class _CartListState extends ConsumerState<CartListView> {
                 ),
               );
             } else {
-              String data = 'エラー';
-              return const Text("No widget to build");
+              return const Text("ERROR");
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -141,8 +147,7 @@ class _CartListState extends ConsumerState<CartListView> {
               ),
             );
           } else {
-            String data = 'エラー';
-            return const Text("No widget to build");
+            return const Text("ERROR");
           }
         });
   }

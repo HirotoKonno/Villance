@@ -93,11 +93,20 @@ class DatabaseHelper {
     });
   }
 
-  Future<int> update(Map<String, dynamic> row) async {
+  Future<void> updateCartItem(Map<String, dynamic> row) async {
     Database? db = await instance.database;
-    int id = row[columnId];
-    return await db!
-        .update(tableCart, row, where: '$columnId = ?', whereArgs: [id]);
+    final names = row[DatabaseHelper.name];
+    final quantity = row[DatabaseHelper.quantity];
+    final existingProduct =
+    await db!.query(tableCart, where: '$name = ?', whereArgs: [names]);
+
+    if (existingProduct.isNotEmpty) {
+      await db!.update(tableCart, {DatabaseHelper.quantity: quantity},
+          where: '$name = ?', whereArgs: [names]);
+      if (kDebugMode) {
+        print('Name: $name 合計数: $quantity');
+      }
+    }
   }
 
   Future<int> delete(int id) async {

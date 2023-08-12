@@ -47,6 +47,7 @@ class _NavigationState extends ConsumerState<VillanceApp> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
           _appBarTitle,
