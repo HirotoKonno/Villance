@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:villance/rental_list_view.dart';
+import 'package:villance/sauna_reserve_view.dart';
 
 import 'cart_view.dart';
 import 'database_helper.dart';
@@ -44,7 +45,7 @@ class _NavigationState extends ConsumerState<VillanceApp> {
     const OnionView(),
     RentalListView(),
     DrinkListView(),
-    DrinkListView(),
+    SaunaReserveView(),
     DrinkListView(),
   ];
 

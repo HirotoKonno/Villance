@@ -256,7 +256,7 @@ class OrderConformDialog extends StatelessWidget {
             Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('注文が確定しました'),
+                content: Text('ご注文が確定しました'),
               ),
             );
           },
