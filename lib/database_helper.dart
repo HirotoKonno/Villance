@@ -98,7 +98,7 @@ class DatabaseHelper {
     final names = row[DatabaseHelper.name];
     final quantity = row[DatabaseHelper.quantity];
     final existingProduct =
-    await db!.query(tableCart, where: '$name = ?', whereArgs: [names]);
+        await db!.query(tableCart, where: '$name = ?', whereArgs: [names]);
 
     if (existingProduct.isNotEmpty) {
       await db!.update(tableCart, {DatabaseHelper.quantity: quantity},
@@ -109,16 +109,16 @@ class DatabaseHelper {
     }
   }
 
-  Future<int> delete(int id) async {
+  Future delete() async {
     Database? db = await instance.database;
-    return await db!.delete(tableCart, where: '$columnId = ?', whereArgs: [id]);
+    return await db!.delete(tableCart);
   }
 }
 
 class Item {
   final int id;
   final String name;
-  final int quantity;
+  int quantity;
   final int price;
 
   Item(
