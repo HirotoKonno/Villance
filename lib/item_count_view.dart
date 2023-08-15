@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'database_helper.dart';
+import 'cart_item_database_helper.dart';
 import 'main.dart';
 
 class ItemCountView extends ConsumerStatefulWidget {
@@ -15,7 +15,7 @@ class ItemCountView extends ConsumerStatefulWidget {
 }
 
 class _ChangeItemCountState extends ConsumerState<ItemCountView> {
-  final dbHelper = DatabaseHelper.instance;
+  final dbHelper = CartItemDatabaseHelper.instance;
   int _count = 0;
 
   get itemName => widget.itemName;
@@ -120,9 +120,9 @@ class _ChangeItemCountState extends ConsumerState<ItemCountView> {
 
   void _insert(int quantity) async {
     Map<String, dynamic> row = {
-      DatabaseHelper.name: itemName,
-      DatabaseHelper.quantity: quantity,
-      DatabaseHelper.price: itemPrice,
+      CartItemDatabaseHelper.name: itemName,
+      CartItemDatabaseHelper.quantity: quantity,
+      CartItemDatabaseHelper.price: itemPrice,
     };
     await dbHelper.updateOrInsertProduct(row);
   }

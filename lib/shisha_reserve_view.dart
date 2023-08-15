@@ -1,29 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:villance/sauna_reserve_database_helper.dart';
-import 'package:villance/sauna_time.dart';
+import 'package:villance/shisha_reserve_database_helper.dart';
+import 'package:villance/shisha_time.dart';
 
-class SaunaReserveView extends StatefulWidget {
-  const SaunaReserveView({super.key});
+class ShishaReserveView extends StatefulWidget {
+  const ShishaReserveView({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _SaunaReserveState();
+    return _ShishaReserveState();
   }
 }
 
-class _SaunaReserveState extends State<SaunaReserveView> {
-  final dbHelper = SaunaReserveDatabaseHelper.instance;
-  Future<List<ReservedSauna>>? saunaReservedData;
+class _ShishaReserveState extends State<ShishaReserveView> {
+  final dbHelper = ShishaReserveDatabaseHelper.instance;
+  Future<List<ReservedShisha>>? shishaReservedData;
 
-  Future<List<ReservedSauna>> _getReservedItems() async {
+  Future<List<ReservedShisha>> _getReservedItems() async {
     return await dbHelper.getReservedTimes();
   }
 
   @override
   void initState() {
     super.initState();
-    saunaReservedData = _getReservedItems();
+    shishaReservedData = _getReservedItems();
   }
 
   @override
@@ -36,17 +36,17 @@ class _SaunaReserveState extends State<SaunaReserveView> {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.black,
-            backgroundColor: Colors.orange,
+            backgroundColor: Colors.blue,
             shape: const StadiumBorder(),
           ),
           onPressed: () {
             showDialog<void>(
                 context: context,
                 builder: (_) {
-                  return StartSaunaDialog(
-                    message1st: "今からサウナを開始しますか？",
+                  return StartShishaDialog(
+                    message1st: "今からシーシャを開始しますか？",
                     message2nd: '',
-                    messageSub: '※準備ができたらお呼びいたします',
+                    messageSub: '※準備ができたらお部屋にお届けします',
                     isToday: 2,
                     addReserveTime: null,
                     reloadView: clearList,
@@ -67,7 +67,7 @@ class _SaunaReserveState extends State<SaunaReserveView> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.black,
-              backgroundColor: Colors.orange[300],
+              backgroundColor: Colors.blue[300],
               shape: const StadiumBorder(),
             ),
             onPressed: () {
@@ -78,9 +78,9 @@ class _SaunaReserveState extends State<SaunaReserveView> {
                     title: const Text("予約時間を選択して下さい"),
                     children: <Widget>[
                       for (var i = 0;
-                          i < ReserveTimeList.canSaunaToday.length;
+                          i < ReserveTimeList.canShishaToday.length;
                           i++)
-                        if (canReserveTime(ReserveTimeList.canSaunaToday[i]))
+                        if (canReserveTime(ReserveTimeList.canShishaToday[i]))
                           Center(
                             child: SimpleDialogOption(
                               onPressed: () {
@@ -88,9 +88,9 @@ class _SaunaReserveState extends State<SaunaReserveView> {
                                 showDialog<void>(
                                     context: context,
                                     builder: (_) {
-                                      return StartSaunaDialog(
+                                      return StartShishaDialog(
                                         message1st:
-                                            "${ReserveTimeList.canSaunaToday[i]}",
+                                            "${ReserveTimeList.canShishaToday[i]}",
                                         message2nd: 'に予約しますか？',
                                         messageSub: '',
                                         isToday: 1,
@@ -100,7 +100,7 @@ class _SaunaReserveState extends State<SaunaReserveView> {
                                     });
                               },
                               child: Text(
-                                  "           ${ReserveTimeList.canSaunaToday[i]}           "),
+                                  "           ${ReserveTimeList.canShishaToday[i]}           "),
                             ),
                           ),
                     ],
@@ -120,7 +120,7 @@ class _SaunaReserveState extends State<SaunaReserveView> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.black,
-              backgroundColor: Colors.orange[300],
+              backgroundColor: Colors.blue[300],
               shape: const StadiumBorder(),
             ),
             onPressed: () {
@@ -131,7 +131,7 @@ class _SaunaReserveState extends State<SaunaReserveView> {
                     title: const Text("予約時間を選択して下さい"),
                     children: <Widget>[
                       for (var i = 0;
-                          i < ReserveTimeList.canSaunaTomorrow.length;
+                          i < ReserveTimeList.canShishaTomorrow.length;
                           i++)
                         Center(
                           child: SimpleDialogOption(
@@ -140,9 +140,9 @@ class _SaunaReserveState extends State<SaunaReserveView> {
                               showDialog<void>(
                                   context: context,
                                   builder: (_) {
-                                    return StartSaunaDialog(
+                                    return StartShishaDialog(
                                       message1st:
-                                          "${ReserveTimeList.canSaunaTomorrow[i]}",
+                                          "${ReserveTimeList.canShishaTomorrow[i]}",
                                       message2nd: 'に予約しますか？',
                                       messageSub: '',
                                       isToday: 0,
@@ -152,7 +152,7 @@ class _SaunaReserveState extends State<SaunaReserveView> {
                                   });
                             },
                             child: Text(
-                                "           ${ReserveTimeList.canSaunaTomorrow[i]}           "),
+                                "           ${ReserveTimeList.canShishaTomorrow[i]}           "),
                           ),
                         ),
                     ],
@@ -169,7 +169,7 @@ class _SaunaReserveState extends State<SaunaReserveView> {
       ]),
       const SizedBox(height: 10),
       const Text(
-        '※本日は21時までご利用できます',
+        '※本日は24時までご利用できます',
         style: TextStyle(color: Colors.black),
       ),
       const SizedBox(height: 50),
@@ -179,11 +179,11 @@ class _SaunaReserveState extends State<SaunaReserveView> {
       ),
       const SizedBox(height: 10),
       FutureBuilder(
-          future: saunaReservedData,
+          future: shishaReservedData,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
-                List<ReservedSauna> data = snapshot.data;
+                List<ReservedShisha> data = snapshot.data;
                 var dayList = <String>[];
                 for (var i = 0; i < data.length; i++) {
                   dayList.add(getDayName(data[i].isToday));
@@ -213,7 +213,7 @@ class _SaunaReserveState extends State<SaunaReserveView> {
                                     showDialog<void>(
                                         context: context,
                                         builder: (_) {
-                                          return DeleteTimeDialog(
+                                          return DeleteShishaTimeDialog(
                                               message: "キャンセルしますか？",
                                               deleteTime: _deleteReserveTime,
                                               time: data[i].hourMinutes);
@@ -237,14 +237,14 @@ class _SaunaReserveState extends State<SaunaReserveView> {
   }
 
   void clearList() {
-    saunaReservedData = _getReservedItems();
+    shishaReservedData = _getReservedItems();
     setState(() {});
   }
 
   void _addReserveTime(int isToday, String time) async {
     Map<String, dynamic> row = {
-      SaunaReserveDatabaseHelper.isToday: isToday,
-      SaunaReserveDatabaseHelper.hourMinutesString: time,
+      ShishaReserveDatabaseHelper.isToday: isToday,
+      ShishaReserveDatabaseHelper.hourMinutesString: time,
     };
     await dbHelper.addReserveTime(row);
     clearList();
@@ -272,7 +272,7 @@ enum ReservedDay {
   other,
 }
 
-class StartSaunaDialog extends StatelessWidget {
+class StartShishaDialog extends StatelessWidget {
   final String message1st;
   final String message2nd;
   final String messageSub;
@@ -280,7 +280,7 @@ class StartSaunaDialog extends StatelessWidget {
   final Function? addReserveTime;
   final Function? reloadView;
 
-  StartSaunaDialog({
+  StartShishaDialog({
     Key? key,
     required,
     required this.message1st,
@@ -291,7 +291,7 @@ class StartSaunaDialog extends StatelessWidget {
     required this.reloadView,
   }) : super(key: key);
 
-  final dbHelper = SaunaReserveDatabaseHelper.instance;
+  final dbHelper = ShishaReserveDatabaseHelper.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -324,12 +324,12 @@ class StartSaunaDialog extends StatelessWidget {
   }
 }
 
-class DeleteTimeDialog extends StatelessWidget {
+class DeleteShishaTimeDialog extends StatelessWidget {
   final String message;
   final String time;
   final Function? deleteTime;
 
-  DeleteTimeDialog({
+  DeleteShishaTimeDialog({
     Key? key,
     required,
     required this.message,
@@ -337,7 +337,7 @@ class DeleteTimeDialog extends StatelessWidget {
     required this.time,
   }) : super(key: key);
 
-  final dbHelper = SaunaReserveDatabaseHelper.instance;
+  final dbHelper = ShishaReserveDatabaseHelper.instance;
 
   @override
   Widget build(BuildContext context) {

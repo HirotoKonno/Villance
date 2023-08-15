@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseHelper {
+class CartItemDatabaseHelper {
   static const _databaseName = "CartDatabase.db";
   static const _databaseVersion = 1;
 
@@ -13,9 +13,9 @@ class DatabaseHelper {
   static const quantity = 'quantity';
   static const price = 'price';
 
-  DatabaseHelper._privateConstructor();
+  CartItemDatabaseHelper._privateConstructor();
 
-  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+  static final CartItemDatabaseHelper instance = CartItemDatabaseHelper._privateConstructor();
   static Database? _database;
 
   Future<Database?> get database async {
@@ -49,8 +49,8 @@ class DatabaseHelper {
 
   Future<void> updateOrInsertProduct(Map<String, dynamic> row) async {
     Database? db = await instance.database;
-    final addName = row[DatabaseHelper.name];
-    final addQuantity = row[DatabaseHelper.quantity];
+    final addName = row[CartItemDatabaseHelper.name];
+    final addQuantity = row[CartItemDatabaseHelper.quantity];
 
     final existingProduct =
         await db!.query(tableCart, where: '$name = ?', whereArgs: [addName]);
@@ -61,7 +61,7 @@ class DatabaseHelper {
       await db.update(
           tableCart,
           {
-            DatabaseHelper.quantity: num,
+            CartItemDatabaseHelper.quantity: num,
           },
           where: '$name = ?',
           whereArgs: [addName]);
@@ -80,10 +80,12 @@ class DatabaseHelper {
     final Database? db = await instance.database;
     final List<Map<String, dynamic>> maps = await db!.query(tableCart);
     return List.generate(maps.length, (i) {
-      print(maps[i][columnId]);
-      print(maps[i][name]);
-      print(maps[i][quantity]);
-      print(maps[i][price]);
+      if (kDebugMode) {
+        print(maps[i][columnId]);
+        print(maps[i][name]);
+        print(maps[i][quantity]);
+        print(maps[i][price]);
+      }
       return Item(
         maps[i][columnId],
         maps[i][name],
@@ -95,13 +97,13 @@ class DatabaseHelper {
 
   Future<void> updateCartItem(Map<String, dynamic> row) async {
     Database? db = await instance.database;
-    final names = row[DatabaseHelper.name];
-    final quantity = row[DatabaseHelper.quantity];
+    final names = row[CartItemDatabaseHelper.name];
+    final quantity = row[CartItemDatabaseHelper.quantity];
     final existingProduct =
         await db!.query(tableCart, where: '$name = ?', whereArgs: [names]);
 
     if (existingProduct.isNotEmpty) {
-      await db!.update(tableCart, {DatabaseHelper.quantity: quantity},
+      await db!.update(tableCart, {CartItemDatabaseHelper.quantity: quantity},
           where: '$name = ?', whereArgs: [names]);
       if (kDebugMode) {
         print('Name: $name 合計数: $quantity');

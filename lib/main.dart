@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:villance/rental_list_view.dart';
 import 'package:villance/sauna_reserve_view.dart';
+import 'package:villance/shisha_reserve_view.dart';
 
+import 'call_owner_view.dart';
 import 'cart_view.dart';
-import 'database_helper.dart';
+import 'cart_item_database_helper.dart';
 import 'drink_list_view.dart';
 
 import 'package:badges/badges.dart' as badges;
@@ -31,7 +33,7 @@ class VillanceApp extends ConsumerStatefulWidget {
 final notificationCountProvider = StateProvider((ref) => 0);
 
 class _NavigationState extends ConsumerState<VillanceApp> {
-  final dbHelper = DatabaseHelper.instance;
+  final dbHelper = CartItemDatabaseHelper.instance;
   Future<List<Item>>? _cartData;
   var _navigationIndex = 0;
   var _appBarTitle = 'ご注文';
@@ -44,9 +46,9 @@ class _NavigationState extends ConsumerState<VillanceApp> {
     DrinkListView(),
     const OnionView(),
     RentalListView(),
-    DrinkListView(),
-    SaunaReserveView(),
-    DrinkListView(),
+    const ShishaReserveView(),
+    const SaunaReserveView(),
+    const CallOwnerView(),
   ];
 
   @override

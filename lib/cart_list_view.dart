@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:villance/item_image_map.dart';
 
-import 'database_helper.dart';
+import 'cart_item_database_helper.dart';
 import 'main.dart';
 
 class CartListView extends ConsumerStatefulWidget {
@@ -14,22 +14,22 @@ class CartListView extends ConsumerStatefulWidget {
 }
 
 class _CartListState extends ConsumerState<CartListView> {
-  final dbHelper = DatabaseHelper.instance;
+  final dbHelper = CartItemDatabaseHelper.instance;
   Future<List<Item>>? cartData;
   String allMoney = "";
 
   _handlePlusPressed(String name, int quantity) async {
     Map<String, dynamic> row = {
-      DatabaseHelper.name: name,
-      DatabaseHelper.quantity: quantity + 1,
+      CartItemDatabaseHelper.name: name,
+      CartItemDatabaseHelper.quantity: quantity + 1,
     };
     await dbHelper.updateCartItem(row);
   }
 
   _handleMinusPressMd(String name, int quantity) async {
     Map<String, dynamic> row = {
-      DatabaseHelper.name: name,
-      DatabaseHelper.quantity: quantity - 1,
+      CartItemDatabaseHelper.name: name,
+      CartItemDatabaseHelper.quantity: quantity - 1,
     };
     await dbHelper.updateCartItem(row);
   }
@@ -82,12 +82,12 @@ class _CartListState extends ConsumerState<CartListView> {
                                   Expanded(
                                       child: ListTile(
                                     leading: SizedBox(
-                                    // （1）画像を配置
-                                    width: 50,
-                                    height: 50,
-                                    child: imageWidget(data[i].name),
-                                    // : (省略)
-                                  ),
+                                      // （1）画像を配置
+                                      width: 50,
+                                      height: 50,
+                                      child: imageWidget(data[i].name),
+                                      // : (省略)
+                                    ),
                                     title: Text(data[i].name,
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold)),
@@ -154,26 +154,29 @@ class _CartListState extends ConsumerState<CartListView> {
                         ],
                       ),
                     ),
-                    allMineyInt > 0 ?
-                    Text("合計金額 : $allMoney円",
-                        style: const TextStyle(
-                          fontSize: 24,
-                        )) : const Text("カートに何も入っていません"),
+                    allMineyInt > 0
+                        ? Text("合計金額 : $allMoney円",
+                            style: const TextStyle(
+                              fontSize: 24,
+                            ))
+                        : const Text("カートに何も入っていません"),
                     const SizedBox(
                       height: 5,
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: ElevatedButton(
-                        onPressed: allMineyInt == 0 ? null : () {
-                          showDialog<void>(
-                              context: context,
-                              builder: (_) {
-                                return OrderConformDialog(
-                                    allMoney: allMoney,
-                                    conformButtonHandler: clearCartList);
-                              });
-                        },
+                        onPressed: allMineyInt == 0
+                            ? null
+                            : () {
+                                showDialog<void>(
+                                    context: context,
+                                    builder: (_) {
+                                      return OrderConformDialog(
+                                          allMoney: allMoney,
+                                          conformButtonHandler: clearCartList);
+                                    });
+                              },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,
                           backgroundColor: Colors.orangeAccent,
@@ -207,14 +210,13 @@ class _CartListState extends ConsumerState<CartListView> {
         });
   }
 
-  Widget imageWidget(String name){
+  Widget imageWidget(String name) {
     var pictureName = ItemImageMap.map[name];
     return ClipRect(
         child: FittedBox(
-          fit: BoxFit.cover,
-          child: Image.asset('images/$pictureName'),
-        )
-    );
+      fit: BoxFit.cover,
+      child: Image.asset('images/$pictureName'),
+    ));
   }
 
   void clearCartList() {
@@ -250,7 +252,7 @@ class OrderConformDialog extends StatelessWidget {
         CupertinoDialogAction(
           child: const Text('はい'),
           onPressed: () {
-            final dbHelper = DatabaseHelper.instance;
+            final dbHelper = CartItemDatabaseHelper.instance;
             dbHelper.delete();
             conformButtonHandler();
             Navigator.pop(context);
