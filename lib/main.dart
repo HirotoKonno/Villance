@@ -14,7 +14,7 @@ import 'drink_list_view.dart';
 
 import 'package:badges/badges.dart' as badges;
 
-import 'onion_view.dart';
+import 'onion_add_view.dart';
 
 void main() {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +49,7 @@ class _NavigationState extends ConsumerState<VillanceApp> {
 
   List<Widget> display = [
     DrinkListView(),
-    const OnionView(),
+    const OnionAddView(),
     RentalListView(),
     const ShishaReserveView(),
     const SaunaReserveView(),

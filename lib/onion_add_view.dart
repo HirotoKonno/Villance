@@ -3,8 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'item_count_view.dart';
 
-class OnionView extends StatelessWidget {
-  const OnionView({super.key});
+class OnionAddView extends StatelessWidget {
+  const OnionAddView({super.key});
   static const String onionName = "玉ねぎ";
   static const int onionPrice = 150;
 
