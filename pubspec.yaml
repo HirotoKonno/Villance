@@ -18,6 +18,14 @@ dependencies:
   sqflite: ^2.3.0
   flutter_datetime_picker_plus: ^2.0.1
   flutter_native_splash: ^2.3.2
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon_ios_no_alfa.png"
+  adaptive_icon_background: '#FFF422'
+  adaptive_icon_foreground: "assets/icon/icon_android_312.png"
 
 flutter_native_splash:
   color: '#FFA500'
