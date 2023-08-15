@@ -16,6 +16,20 @@ dependencies:
   badges: ^3.1.1
   flutter_riverpod: ^2.3.6
   sqflite: ^2.3.0
+  flutter_datetime_picker_plus: ^2.0.1
+  flutter_native_splash: ^2.3.2
+
+flutter_native_splash:
+  color: '#FFA500'
+  image: 'assets/images/splash.png'
+  color_dark: '#262626'
+  image_dark: 'assets/images/splash.png'
+  fullscreen: true
+  android_12:
+    icon_background_color: '#FFA500'
+    image: 'assets/images/splash_android12.png'
+    icon_background_color_dark: '#262626'
+    image_dark: 'assets/images/splash_android12.png'
 
 dev_dependencies:
   flutter_test:
