@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:villance/rental_list_view.dart';
 import 'package:villance/sauna_reserve_view.dart';
@@ -15,13 +16,17 @@ import 'package:badges/badges.dart' as badges;
 
 import 'onion_view.dart';
 
-void main() => runApp(
-      const ProviderScope(
-        child: MaterialApp(
-          home: VillanceApp(),
-        ),
+void main() {
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  runApp(
+    const ProviderScope(
+      child: MaterialApp(
+        home: VillanceApp(),
       ),
-    );
+    ),
+  );
+}
 
 class VillanceApp extends ConsumerStatefulWidget {
   const VillanceApp({super.key});
@@ -70,7 +75,7 @@ class _NavigationState extends ConsumerState<VillanceApp> {
               for (var i = 0; i < data.length; i++) {
                 notificationCount += data[i].quantity;
               }
-
+              FlutterNativeSplash.remove();
               return Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
@@ -98,6 +103,7 @@ class _NavigationState extends ConsumerState<VillanceApp> {
                   ],
                 ),
                 bottomNavigationBar: BottomNavigationBar(
+                  selectedItemColor: Colors.orange,
                   type: BottomNavigationBarType.fixed,
                   items: const [
                     BottomNavigationBarItem(
@@ -142,12 +148,7 @@ class _NavigationState extends ConsumerState<VillanceApp> {
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                ],
-              ),
+              child: Text("loading now..."),
             );
           } else {
             return const Text("ERROR");

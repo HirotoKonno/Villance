@@ -11,6 +11,7 @@ class CallOwnerView extends StatelessWidget {
         children: [
           const SizedBox(height: 100),
           MaterialButton(
+            elevation: 40,
             onPressed: () {
               showDialog<void>(
                   context: context,
@@ -24,7 +25,7 @@ class CallOwnerView extends StatelessWidget {
             shape: const CircleBorder(),
             child: const Text(
               "呼び出す",
-              style: TextStyle(color: Colors.white, fontSize: 50),
+              style: TextStyle(color: Colors.white, fontSize: 35),
             ),
           )
         ],
