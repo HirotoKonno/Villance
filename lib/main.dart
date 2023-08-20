@@ -7,6 +7,7 @@ import 'package:villance/rental_list_view.dart';
 import 'package:villance/sauna_reserve_view.dart';
 import 'package:villance/shisha_reserve_view.dart';
 
+import 'auth_manager.dart';
 import 'call_owner_view.dart';
 import 'cart_view.dart';
 import 'cart_item_database_helper.dart';
@@ -16,16 +17,31 @@ import 'package:badges/badges.dart' as badges;
 
 import 'onion_add_view.dart';
 
-void main() {
+Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await LineSDK.instance.setup("2000467028");
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(
     const ProviderScope(
-      child: MaterialApp(
-        home: VillanceApp(),
-      ),
+      child: MyApp(),
     ),
   );
+}
+
+class MyApp extends ConsumerWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _authManager = ref.watch(authManagerProvider);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'タイトル',
+      // ログイン中：ホーム画面、未ログイン：ログイン画面
+      home: _authManager.isLoggedIn ? const VillanceApp() : const Text("FALSE"),
+    );
+  }
 }
 
 class VillanceApp extends ConsumerStatefulWidget {
