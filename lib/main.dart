@@ -19,8 +19,8 @@ import 'onion_add_view.dart';
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await LineSDK.instance.setup("2000467028");
+  // await Firebase.initializeApp();
+  // await LineSDK.instance.setup("2000467028");
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(
     const ProviderScope(
@@ -34,12 +34,13 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _authManager = ref.watch(authManagerProvider);
+    // final _authManager = ref.watch(authManagerProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'タイトル',
       // ログイン中：ホーム画面、未ログイン：ログイン画面
-      home: _authManager.isLoggedIn ? const VillanceApp() : const Text("FALSE"),
+      // home: _authManager.isLoggedIn ? const VillanceApp() : const Text("FALSE"),
+      home: VillanceApp(),
     );
   }
 }
