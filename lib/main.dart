@@ -6,6 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:villance/rental_list_view.dart';
 import 'package:villance/sauna_reserve_view.dart';
 import 'package:villance/shisha_reserve_view.dart';
+import 'package:flutter_line_sdk/flutter_line_sdk.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:villance/sign_in_page.dart';
 
 import 'auth_manager.dart';
 import 'call_owner_view.dart';
@@ -19,8 +22,8 @@ import 'onion_add_view.dart';
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-  // await LineSDK.instance.setup("2000467028");
+  await Firebase.initializeApp();
+  await LineSDK.instance.setup("2000467028");
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(
     const ProviderScope(
@@ -34,13 +37,13 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final _authManager = ref.watch(authManagerProvider);
+    final authManager = ref.watch(authManagerProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'タイトル',
+      title: 'Viallance',
       // ログイン中：ホーム画面、未ログイン：ログイン画面
-      // home: _authManager.isLoggedIn ? const VillanceApp() : const Text("FALSE"),
-      home: VillanceApp(),
+      home: authManager.isLoggedIn ? const VillanceApp() : const SignInPage(),
+      // home: VillanceApp(),
     );
   }
 }

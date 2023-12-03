@@ -1,8 +1,7 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'auth_manager.dart';
+import '../auth_manager.dart';
 
 class SignInPage extends ConsumerWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -18,4 +17,5 @@ class SignInPage extends ConsumerWidget {
         ),
       ),
     );
-  }*/
+  }
+}

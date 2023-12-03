@@ -1,4 +1,3 @@
-/*
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,8 +17,8 @@ class AuthManager with ChangeNotifier {
   }
   final _firebaseAuth = FirebaseAuth.instance;
   bool isLoggedIn = false;
-  　　　
+
   Future<void> signInWithLine() async {
     // 後ほどここにログイン処理を実装していく
   }
-}*/
+}
